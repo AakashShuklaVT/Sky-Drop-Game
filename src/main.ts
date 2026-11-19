@@ -22,7 +22,7 @@ async function boot(): Promise<void> {
     box.position.set(app.screen.width / 2, app.screen.height / 2 )
     app.ticker.add((ticker) => {
         box.rotation += 0.05 * ticker.deltaTime;
-  });
+    });
 }
 
 boot()
