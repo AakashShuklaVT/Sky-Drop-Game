@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      Mobile-first viewport:
+      - width=device-width      → 1 CSS px = 1 "phone px", not a zoomed-out desktop page
+      - maximum-scale / user-scalable=no → stops pinch/double-tap zoom stealing our touches
+      - viewport-fit=cover      → draw under the notch / home bar (we handle safe areas in code)
+    -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#1b2a3a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Sky Drop</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
