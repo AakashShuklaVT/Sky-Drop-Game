@@ -11,6 +11,8 @@ export class Input {
 	private readonly stage: Container;
 	private readonly space: Container; // we report positions in THIS container's coordinates
 	private readonly keysDown = new Set<string>();
+	/** Keys that went down since the last `endFrame()` (for one-shot actions like pause). */
+	private readonly keysPressed = new Set<string>();
 	private activePointerId: number | null = null;
 
 	constructor(app: Application, space: Container) {
@@ -38,6 +40,22 @@ export class Input {
 		const right =
 			this.keysDown.has("ArrowRight") || this.keysDown.has("KeyD");
 		return Number(right) - Number(left);
+	}
+
+	/**
+	 * True if any of `codes` was pressed this frame. Holding a key counts once, not every frame.
+	 * Consumes the press, so two systems can't both react to the same key.
+	 */
+	consumePress(...codes: string[]): boolean {
+		for (const code of codes) {
+			if (this.keysPressed.delete(code)) return true;
+		}
+		return false;
+	}
+
+	/** Call once at the end of every frame: forgets presses nobody consumed. */
+	endFrame(): void {
+		this.keysPressed.clear();
 	}
 
 	/** Remove every listener. Call when the game/scene is thrown away. */
@@ -79,6 +97,7 @@ export class Input {
 
 	private onKeyDown = (e: KeyboardEvent): void => {
 		this.keysDown.add(e.code);
+		if (!e.repeat) this.keysPressed.add(e.code); // auto-repeat while held is not a new press
 	};
 
 	private onKeyUp = (e: KeyboardEvent): void => {
@@ -88,6 +107,7 @@ export class Input {
 	/** Window lost focus (alt-tab, notification): we'd miss the key-up, so reset everything. */
 	private onBlur = (): void => {
 		this.keysDown.clear();
+		this.keysPressed.clear();
 		this.activePointerId = null;
 		this.pointerX = null;
 	};

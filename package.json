@@ -4,12 +4,15 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "build": "tsc --noEmit && vite build",
+    "assets": "assetpack",
+    "assets:watch": "assetpack -w",
+    "dev": "npm run assets && vite --host",
+    "build": "npm run assets && tsc --noEmit && vite build",
     "preview": "vite preview --host",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@pixi/sound": "^6.0.3",
     "pixi.js": "^8.23.0"
   },
   "devDependencies": {

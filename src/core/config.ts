@@ -1,10 +1,9 @@
+/**
+ * Engine-level constants: the fixed design space every scene is laid out in.
+ * Game tuning (speeds, points, timings) lives in `game/tuning.ts`, so `core/` stays reusable.
+ */
+
+/** Width of the design space, in design units. */
 export const DESIGN_WIDTH = 720;
+/** Height of the design space, in design units. */
 export const DESIGN_HEIGHT = 1280;
-
-/** Y of the ground line in design space: where the player's feet stand. */
-export const GROUND_Y = 1180;
-
-/** Player top speed, in design units per second. */
-export const PLAYER_SPEED = 900;
-/** Half the player's visible width, used to keep her fully inside the design area. */
-export const PLAYER_HALF_WIDTH = 60;
